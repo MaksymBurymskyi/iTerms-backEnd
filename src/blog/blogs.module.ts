@@ -13,9 +13,7 @@ import {
 export class DatabaseConnection implements MongooseOptionsFactory {
   createMongooseOptions(): MongooseModuleOptions {
     return {
-      uri: 'mongodb://127.0.0.1:27017/blogdb',
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      uri: 'mongodb://127.0.0.1:27017',
     };
   }
 }
