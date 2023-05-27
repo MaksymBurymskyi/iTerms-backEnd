@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { BlogService } from './blogs.service';
-import { CreateBlogDto } from './dto/create-blog.dto';
 import { Blog } from './schemas/blog.schema';
+import { Article } from './schemas/article.schema';
 
 @Controller('blogs')
 export class BlogController {
@@ -11,9 +11,14 @@ export class BlogController {
   async getAllBlogs(): Promise<Blog[]> {
     return this.blogService.getAllBlogs();
   }
-
-  @Post()
-  createBlog(@Body() createBlogDto: CreateBlogDto) {
-    return this.blogService.createBlog(createBlogDto);
+  @Get(':articleId')
+  async getArticle(
+    @Param('articleId') articleId: number,
+  ): Promise<Article | null> {
+    return this.blogService.getArticle(articleId);
+  }
+  @Get('import')
+  async importJson() {
+    return this.blogService.importJson();
   }
 }
