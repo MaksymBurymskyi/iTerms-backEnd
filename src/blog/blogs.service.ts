@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Blog } from './schemas/blog.schema';
-// import blogs from './json/blogs.json';
+import blogs from './json/blogs.json';
 
 @Injectable()
 export class BlogService {
@@ -11,12 +11,16 @@ export class BlogService {
     private readonly blogModel: Model<Blog>,
   ) {}
 
+  async createBlogs(blogs: Blog[]): Promise<Blog[]> {
+    return this.blogModel.create(blogs);
+  }
+
   // використовуємо для імпорту файлу json до бази даних
   importJson() {
-    // this.createBlogs(blogs);
-    // if (blogs) {
-    //   console.log('blogs :>> ', blogs[0]);
-    // }
+    this.createBlogs(blogs);
+    if (blogs) {
+      console.log('blogs :>> ', blogs[0]);
+    }
   }
 
   // метод повертає блоги з бази даних
